@@ -40,11 +40,11 @@ const onSearchFormSubmit = async event => {
   
     imagesListEl.innerHTML = '';
 
-    loader.classList.add('active');
+    loader.classList.add('show-loader');
 
     const response = await searchPhoto(query, page);
 
-    loader.classList.remove('active');
+    loader.classList.remove('show-loader');
 
     if (response.data.total === 0) {
       iziToast.info({
@@ -74,7 +74,7 @@ const onSearchFormSubmit = async event => {
       loadMoreBtn.addEventListener('click', onLoadMoreBtnClick);
     }
   } catch (error) {
-    loader.classList.remove('active');
+    loader.classList.remove('show-loader');
     iziToast.error({
       message: 'Something went wrong, please try again later.',
       position: 'topRight',
@@ -86,9 +86,9 @@ const onSearchFormSubmit = async event => {
 const onLoadMoreBtnClick = async () => {
   try {
     page++;
-    loader.classList.add('active');
+    loader.classList.add('show-loader');
     const response = await searchPhoto(query, page);
-    loader.classList.remove('active');
+    loader.classList.remove('show-loader');
     imagesListEl.insertAdjacentHTML(
       'beforeend',
       imagesCardTemplate(response.data.hits)
